@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Outer Decorative Glow Ring -->
+    <path
+        android:pathData="M54,22 A32,32 0 1,1 53.9,22 Z"
+        android:strokeWidth="1.5"
+        android:strokeColor="#8010B981"
+        android:fillColor="#00000000" />
+
+    <!-- Core Circle Drop Shadow -->
+    <path
+        android:pathData="M54,32 A23,23 0 1,1 53.9,32 Z"
+        android:fillColor="#50000000" />
+
+    <!-- Core Emblem Circle with Green Linear Gradient -->
+    <path
+        android:pathData="M54,31 A23,23 0 1,1 53.9,31 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54"
+                android:startY="31"
+                android:endX="54"
+                android:endY="77"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF10B981" />
+                <item android:offset="0.5" android:color="#FF059669" />
+                <item android:offset="1.0" android:color="#FF047857" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Core Emblem Subtle Border -->
+    <path
+        android:pathData="M54,31 A23,23 0 1,1 53.9,31 Z"
+        android:strokeWidth="1.0"
+        android:strokeColor="#50FFFFFF"
+        android:fillColor="#00000000" />
+
+    <!-- CallSplit Rotated 180 Degrees around (54, 54) -->
+    <!-- Scaled so 24x24 fills ~24dp (scale = 1.05) -->
+    <group
+        android:pivotX="12"
+        android:pivotY="12"
+        android:rotation="180"
+        android:scaleX="1.05"
+        android:scaleY="1.05"
+        android:translateX="42"
+        android:translateY="42">
+        <path
+            android:fillColor="#FF060F0C"
+            android:pathData="M14,4l2.29,2.29 -2.88,2.88 1.42,1.42 2.88,-2.88L20,10V4z" />
+        <path
+            android:fillColor="#FF060F0C"
+            android:pathData="M10,4H4v6l2.29,-2.29 4.71,4.7V20h2v-8.41l-5.29,-5.3z" />
+    </group>
+
+</vector>

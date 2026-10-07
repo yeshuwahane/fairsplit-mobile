@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>FairSplit needs camera access to capture physical receipts and bill photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>FairSplit needs photo library access to attach bill photos and payment screenshots.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>FairSplit needs permission to save receipts to your photo library.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.cybernerd404.fairsplit</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fairsplit</string>
+			</array>
+		</dict>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>FairSplit connects to your local development server to sync epics and expenses.</string>
+</dict>
+</plist>
