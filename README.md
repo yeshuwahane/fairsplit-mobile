@@ -2,6 +2,17 @@
 
 > Production-grade, cross-platform expense sharing, group debt minimization, and bilateral settlement application built with **Kotlin Multiplatform (KMP)** and **Compose Multiplatform (CMP)**.
 
+---
+
+### 🔗 Project Repositories & Quick Links
+| Resource | Link |
+|---|---|
+| 📱 **Mobile Client (KMP / CMP)** | [github.com/yeshuwahane/fairsplit-mobile](https://github.com/yeshuwahane/fairsplit-mobile) |
+| ⚙️ **Backend Service (Ktor / Postgres)** | [github.com/yeshuwahane/fairplit-backend](https://github.com/yeshuwahane/fairplit-backend) |
+| 📥 **Android APK Download** | [Download Latest Release APK](https://github.com/yeshuwahane/fairsplit-mobile/releases/tag/release) |
+
+---
+
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org/)
 [![Compose Multiplatform](https://img.shields.io/badge/Compose_Multiplatform-1.7.3-4285F4?logo=jetpackcompose&logoColor=white)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![Android](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white)](https://developer.android.com/)

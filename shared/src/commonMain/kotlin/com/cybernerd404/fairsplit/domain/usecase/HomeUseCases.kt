@@ -5,6 +5,9 @@ import com.cybernerd404.fairsplit.domain.model.Epic
 import com.cybernerd404.fairsplit.domain.model.EpicStatus
 import com.cybernerd404.fairsplit.domain.model.Expense
 import com.cybernerd404.fairsplit.domain.model.UserProfile
+import com.cybernerd404.fairsplit.data.local.LocalDatabase
+import com.cybernerd404.fairsplit.data.local.MockDataProvider
+import com.cybernerd404.fairsplit.domain.engine.ExpenseCalculationEngine
 import com.cybernerd404.fairsplit.domain.repository.EpicRepository
 import com.cybernerd404.fairsplit.domain.repository.ExpenseRepository
 import com.cybernerd404.fairsplit.domain.repository.UserRepository
@@ -31,7 +34,7 @@ class GetHomeOverviewUseCase(
         val epicsResult = epicsDeferred.await()
         val expensesResult = expensesDeferred.await()
 
-        val user = userResult.data ?: UserProfile(
+        val rawUser = userResult.data ?: UserProfile(
             id = "usr_me",
             name = "You",
             email = "",
@@ -47,9 +50,13 @@ class GetHomeOverviewUseCase(
         }
         val expenses = expensesResult.data ?: emptyList()
 
+        val calculatedUser = ExpenseCalculationEngine.calculateUserSummary(epics, rawUser)
+        LocalDatabase.saveUserProfile(calculatedUser)
+        MockDataProvider.updateCurrentUser(calculatedUser)
+
         DataResource.success(
             HomeOverviewData(
-                userProfile = user,
+                userProfile = calculatedUser,
                 activeEpics = epics,
                 recentExpenses = expenses
             )

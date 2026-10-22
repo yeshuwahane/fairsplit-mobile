@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cybernerd404.fairsplit.domain.engine.ExpenseCalculationEngine
 import com.cybernerd404.fairsplit.domain.model.Epic
 import com.cybernerd404.fairsplit.domain.model.UserProfile
 import com.cybernerd404.fairsplit.theme.FairSplitColors
@@ -58,6 +59,18 @@ fun HomeConstellationGraph(
     currencySymbol: String = "₹",
     modifier: Modifier = Modifier
 ) {
+    // If userProfile arrives before summary aggregation, calculate dynamically from epics
+    val effectiveUserProfile = remember(userProfile, epics) {
+        if (userProfile.youOwe == 0.0 && userProfile.othersOweYou == 0.0 && userProfile.netBalance == 0.0 && epics.isNotEmpty()) {
+            ExpenseCalculationEngine.calculateUserSummary(epics, userProfile)
+        } else {
+            userProfile
+        }
+    }
+    val totalSpentAcrossEpics = remember(epics) {
+        epics.sumOf { it.totalSpent }
+    }
+
     // Constellation graph displays top active epics (max 5) to guarantee a clean, non-overlapping orbital view
     val maxOrbitNodes = 5
     val displayEpics = remember(epics) {
@@ -105,10 +118,10 @@ fun HomeConstellationGraph(
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
-                        text = if (userProfile.netBalance >= 0) "+$currencySymbol${userProfile.netBalance.toInt()}" else "-$currencySymbol${abs(userProfile.netBalance).toInt()}",
+                        text = if (effectiveUserProfile.netBalance >= 0) "+$currencySymbol${effectiveUserProfile.netBalance.toInt()}" else "-$currencySymbol${abs(effectiveUserProfile.netBalance).toInt()}",
                         fontSize = 36.sp,
                         fontWeight = FontWeight.ExtraBold,
-                        color = if (userProfile.netBalance >= 0) FairSplitColors.PositiveGreen else FairSplitColors.NegativeRed
+                        color = if (effectiveUserProfile.netBalance >= 0) FairSplitColors.PositiveGreen else FairSplitColors.NegativeRed
                     )
                 }
 
@@ -121,7 +134,7 @@ fun HomeConstellationGraph(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "$currencySymbol${(userProfile.youOwe + userProfile.othersOweYou + userProfile.netBalance * 2).toInt()}",
+                        text = "$currencySymbol${totalSpentAcrossEpics.toInt()}",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -151,7 +164,7 @@ fun HomeConstellationGraph(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "You owe $currencySymbol${userProfile.youOwe.toInt()}",
+                        text = "You owe $currencySymbol${effectiveUserProfile.youOwe.toInt()}",
                         fontSize = 13.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -169,7 +182,7 @@ fun HomeConstellationGraph(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "Others owe you $currencySymbol${userProfile.othersOweYou.toInt()}",
+                        text = "Others owe you $currencySymbol${effectiveUserProfile.othersOweYou.toInt()}",
                         fontSize = 13.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface
